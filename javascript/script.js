@@ -22,15 +22,13 @@ function operate(operator, numOne, numTwo) {
   } else if (operator === "*") {
     return multiply(numOne, numTwo);
   } else if (operator === "/") {
-    if (numTwo===0){
-      document.getElementById("displayPad").innerHTML= "You're an irritation";
+    if (numTwo === 0) {
+      document.getElementById("displayPad").innerHTML = "You're an irritation";
       reset();
-    }
-    else{
+    } else {
       return divide(numOne, numTwo);
     }
-  }
-  else {
+  } else {
     return "Error";
   }
   return secondOperand;
@@ -58,42 +56,35 @@ displayResults();
 const keys = document.querySelector("#calculator");
 keys.addEventListener("click", (event) => {
   const { target } = event;
-
   if (!target.matches("button")) {
     return;
   }
-
   if (target.classList.contains("operatorsButtons")) {
     chooseOperator(target.value);
     displayResults();
     return;
-  }  
-
+  }
   if (target.classList.contains("clearButton")) {
     reset();
     displayResults();
     return;
   }
-
   if (target.classList.contains("decimalButton")) {
     addDecimalPoint(target.value);
     displayResults();
     return;
   }
-
   if (target.classList.contains("backspaceButton")) {
     backspace();
     displayResults();
     return;
   }
-
   inputNumbers(target.value);
   displayResults();
 });
 
 function inputNumbers(number) {
   const { displayValue, secondOperand } = calculator;
-
   if (secondOperand === true) {
     calculator.displayValue = number;
     calculator.secondOperand = false;
@@ -101,23 +92,19 @@ function inputNumbers(number) {
     calculator.displayValue =
       displayValue === "0" ? number : displayValue + number;
   }
-
 }
 
 function chooseOperator(selectedOperator) {
   const { firstOperand, displayValue, operator } = calculator;
   const inputValue = parseFloat(displayValue);
-
-  if(selectedOperator==="=" && firstOperand===null){
+  if (selectedOperator === "=" && firstOperand === null) {
     reset();
     return;
   }
-
   if (operator && calculator.secondOperand) {
     calculator.operator = selectedOperator;
     return;
   }
-
   if (firstOperand === null && !isNaN(inputValue)) {
     calculator.firstOperand = inputValue;
   } else if (operator) {
@@ -125,7 +112,6 @@ function chooseOperator(selectedOperator) {
     calculator.displayValue = `${parseFloat(newResult.toFixed(7))}`;
     calculator.firstOperand = newResult;
   }
-  
   calculator.secondOperand = true;
   calculator.operator = selectedOperator;
 }
@@ -136,7 +122,6 @@ function addDecimalPoint(decimalPoint) {
     calculator.secondOperand = false;
     return;
   }
-
   if (!calculator.displayValue.includes(decimalPoint)) {
     calculator.displayValue += decimalPoint;
   }
@@ -149,77 +134,60 @@ function reset() {
   calculator.operator = null;
 }
 
-function backspace(){
-  let backspace = calculator.displayValue.toString().slice(0,-1);
-  calculator.displayValue=backspace;
+function backspace() {
+  let backspace = calculator.displayValue.toString().slice(0, -1);
+  calculator.displayValue = backspace;
 }
 
-document.addEventListener("keydown", (e) =>{
-  if(e.key==="1"){
+document.addEventListener("keydown", (e) => {
+  if (e.key === "1") {
     inputNumbers("1");
     displayResults();
-  }
-  else if (e.key==="2"){
+  } else if (e.key === "2") {
     inputNumbers("2");
     displayResults();
-  }
-  else if (e.key==="3"){
+  } else if (e.key === "3") {
     inputNumbers("3");
     displayResults();
-  }
-  else if (e.key==="4"){
+  } else if (e.key === "4") {
     inputNumbers("4");
     displayResults();
-  }
-  else if (e.key==="5"){
+  } else if (e.key === "5") {
     inputNumbers("5");
     displayResults();
-  }
-  else if (e.key==="6"){
+  } else if (e.key === "6") {
     inputNumbers("6");
     displayResults();
-  }
-  else if (e.key==="7"){
+  } else if (e.key === "7") {
     inputNumbers("7");
     displayResults();
-  }
-  else if (e.key==="8"){
+  } else if (e.key === "8") {
     inputNumbers("8");
     displayResults();
-  }
-  else if (e.key==="9"){
+  } else if (e.key === "9") {
     inputNumbers("9");
     displayResults();
-  }
-  else if (e.key==="0"){
+  } else if (e.key === "0") {
     inputNumbers("0");
     displayResults();
-  }
-  else if (e.key==="="){
+  } else if (e.key === "=") {
     chooseOperator("+");
-  }
-  else if (e.key==="-"){
+  } else if (e.key === "-") {
     chooseOperator("-");
-  }
-  else if (e.key.toLowerCase()==="m" && e.shiftKey){
+  } else if (e.key.toLowerCase() === "m" && e.shiftKey) {
     chooseOperator("*");
-  }
-  else if (e.key==="/"){
+  } else if (e.key === "/") {
     chooseOperator("/");
-  }
-  else if(e.key==="."){
+  } else if (e.key === ".") {
     addDecimalPoint(".");
-  }
-  else if(e.key==="Backspace"){
+  } else if (e.key === "Backspace") {
     backspace();
     displayResults();
-  }
-  else if(e.key==="Delete"){
+  } else if (e.key === "Delete") {
     reset();
     displayResults();
-  }
-  else if(e.key==="Enter"){
+  } else if (e.key === "Enter") {
     chooseOperator("=");
     displayResults();
   }
-})
+});
